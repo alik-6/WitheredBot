@@ -57,9 +57,9 @@ def load_plugin():
                     data = class_plug.setup(bot)
                     globals()['Loaded_cogs'].append(data)
                     bot.add_cog(data['Object'])
-                    print(f"[ PLUGIN SYS ] `{file.replace('_plugin.py', '')}` Loaded Successfully")
+                    print(f"[ PLUGIN SYS ] `{data['name']}` Loaded Successfully")
                 except ImportError:
-                    print(f"[ PLUGIN SYS ] `{file.replace('_plugin.py', '')}` Failed to Load")
+                    print(f"[ PLUGIN SYS ] `{data['name']}` Failed to Load")
                 finally:
                     pass
     print(f"Loaded All Plugins In {round(abs(t-time.time() * 1000))}ms")
