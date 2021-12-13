@@ -48,9 +48,11 @@ class A(commands.Cog):
     async def about(self, ctx):
         await ctx.send(embed=Embed(
             title="About",
-            description="`Written in python by` <@893794390164795392>"
-        ).add_field(name="Github:", value="`https://github.com/a-a-a-aa/WitheredBot`").set_thumbnail(url=ctx.author.avatar_url)
-        )
+            description="`Written in python by` <@8937943   90164795392>"
+        ).add_field(name="Github:", value="https://github.com/a-a-a-aa/WitheredBot").set_thumbnail(url=ctx.author.avatar_url)
+    )  
+
+        
 
 def setup(bot):
     return A(bot)

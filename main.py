@@ -26,7 +26,7 @@ def load_plugin():
             if file.endswith("_plugin.py"):
                 try:
                     class_plug = import_module(f'plugins.{file.replace(".py", "")}')
-                    bot.add_cog(eval("class_plug.setup(bot)"))
+                    bot.add_cog(class_plug.setup(bot))
                     print(f"[ PLUGIN SYS ] `{file.replace('_plugin.py', '')}` Loaded Successfully")
                 except ImportError:
                     print(f"[ PLUGIN SYS ] `{file.replace('_plugin.py', '')}` Failed to Load")

@@ -9,9 +9,11 @@ class H(commands.Cog):
 
     @commands.command()
     async def help(self, ctx):
+        excluded = ['help']
         help_embed = Embed(title="Help", description="List all commands")
         for key in self.bot.walk_commands():
-            help_embed.add_field(name=f"{PREFIX}{key}", value="`cmd`")
+            if str(key) not in excluded:
+                help_embed.add_field(name=f"{PREFIX}{key}", value="`cmd`")
 
         await ctx.send(embed=help_embed)
 
