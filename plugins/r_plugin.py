@@ -3,7 +3,7 @@ from .help_func import embed_help, msgf
 from asyncio import  sleep
 
 
-class R(commands.Cog):
+class Init(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -24,5 +24,5 @@ class R(commands.Cog):
                 await ctx.send(msgf(msg_to_send))
 
 
-def setup(bot):
-    return R(bot)
+def setup(bot) -> dict:
+    return {"Object": Init(bot), "name": "Repeat it!", "description": "Adds Ability to Repeat|Spam a Message"}

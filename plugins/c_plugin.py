@@ -3,7 +3,7 @@ from .help_func import embed_help
 from discord import (Embed)
 
 
-class C(commands.Cog):
+class Init(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -26,5 +26,5 @@ class C(commands.Cog):
             await ctx.send(embed=calc_embed)
 
 
-def setup(bot):
-    return C(bot)
+def setup(bot) -> dict:
+    return {"Object": Init(bot), "name": "Calc", "description": "Adds the ability to do basic math"}

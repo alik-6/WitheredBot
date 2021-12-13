@@ -5,7 +5,7 @@ from discord import Embed
 from .help_func import embed_help, msgf
 
 
-class R(commands.Cog):
+class Init(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -29,5 +29,5 @@ class R(commands.Cog):
             )
 
 
-def setup(bot):
-    return R(bot)
+def setup(bot) -> dict:
+    return {"Object": Init(bot), "name": "Youtobii", "description": "Adds Ability to Search Youtube videos"}

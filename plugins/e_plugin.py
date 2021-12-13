@@ -5,7 +5,7 @@ from .help_func import embed_help
 from discord import Embed
 
 
-class E(commands.Cog):
+class Init(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -28,5 +28,5 @@ class E(commands.Cog):
                 await ctx.send(embed=dict_embed)
 
 
-def setup(bot):
-    return E(bot)
+def setup(bot) -> dict:
+    return {"Object": Init(bot), "name": "Explain It", "description": "Adds Ability to use Dictionary Search"}

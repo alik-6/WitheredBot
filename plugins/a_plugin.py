@@ -4,7 +4,7 @@ from art import text2art
 from discord.ext import (commands)
 
 
-class A(commands.Cog):
+class Init(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.afk = False
@@ -44,15 +44,7 @@ class A(commands.Cog):
                 embed.description = msgf("[C]Must be less than 7 alphabets[C]")
             await ctx.send(embed=embed)
 
-    @commands.command()
-    async def about(self, ctx):
-        await ctx.send(embed=Embed(
-            title="About",
-            description="`Written in python by` <@8937943   90164795392>"
-        ).add_field(name="Github:", value="https://github.com/a-a-a-aa/WitheredBot").set_thumbnail(url=ctx.author.avatar_url)
-    )  
-
         
 
-def setup(bot):
-    return A(bot)
+def setup(bot) -> dict:
+    return {"Object": Init(bot), "name": "Aro", "description": "Adds ability to use ascii art and afk system"}

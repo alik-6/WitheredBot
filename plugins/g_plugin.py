@@ -3,7 +3,7 @@ from discord import Game, Status
 from .help_func import embed_help, msgf
 
 
-class G(commands.Cog):
+class Init(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -17,5 +17,5 @@ class G(commands.Cog):
             await ctx.send(msgf(f"[B]{name}[B] set as default game"))
 
 
-def setup(bot):
-    return G(bot)
+def setup(bot) -> dict:
+    return {"Object": Init(bot), "name": "Custom Status", "description": "Adds Ability to Set Custom Games as you're status"}
