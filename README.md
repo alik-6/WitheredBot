@@ -1,7 +1,7 @@
 # WitheredBot
 A Discord Self bot written in python 
 ## Requirement
-`Python >= 3.9`
+`Python >= 3.6`
 ## How to Configure
 1. `git clone https://github.com/a-a-a-aa/WitheredBot.git`
 2. `cd WitheredBot`
