@@ -75,6 +75,10 @@ def run_bot():
         except errors.LoginFailure:
             print("===============Improper Token: Are you sure you passed the right token?===============")
         
+        except errors.DiscordServerError:
+            print("It looks like discord server are having some issues,please try again later status: https://discordstatus.com/")
+        except errors.ConnectionClosed:
+            print("Discrod Unexpectidly Closed the connection")
         finally:
             pass
 
