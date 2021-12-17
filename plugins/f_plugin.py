@@ -22,8 +22,8 @@ class Init(commands.Cog):
         args = " ".join(msg)
         if args.strip() == "":
             await ctx.send(
-                embed=await (embed_help(f"fmt [arg]", accepted_args=['message'], usage="Format the message")))
-        await ctx.message.edit()
+                embed=await(embed_help(f"fmt [arg]", accepted_args=['message'], usage="Format the message")))
+        await ctx.message.delete()
         await ctx.send(msgf(args))
 
 

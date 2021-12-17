@@ -18,7 +18,7 @@ class Init(commands.Cog):
         if num > 200:
             await ctx.send(embed=await(embed_help("Must be less then 30")))
         else:
-            msg_to_send = message.strip(f"x{num}")
+            msg_to_send = message.replace(f"x{num}", "")
             for _ in range(num):
                 await sleep(0.8)        
                 await ctx.send(msgf(msg_to_send))
