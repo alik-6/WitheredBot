@@ -1,6 +1,6 @@
 from discord.ext import commands
 from discord import Game, Status
-from help_func import embed_help, msgf
+from .help_func import embed_help, msgf
 
 
 class Init(commands.Cog):

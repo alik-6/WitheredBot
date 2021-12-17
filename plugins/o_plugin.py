@@ -1,7 +1,7 @@
 from discord.ext import commands
 import asyncio
 from random import randint
-from help_func import aprint
+from .help_func import aprint
 
 
 class Init(commands.Cog):
