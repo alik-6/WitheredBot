@@ -4,6 +4,8 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+#IMTELIJ
+.idea
 # C extensions
 *.so
 
