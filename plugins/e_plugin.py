@@ -1,7 +1,7 @@
 from discord.ext import commands
 from requests import get
 
-from .help_func import embed_help
+from help_func import embed_help
 from discord import Embed
 
 
@@ -11,6 +11,7 @@ class Init(commands.Cog):
 
     @commands.command()
     async def explain(self, ctx, word=""):
+        global dict_embed
         if str(word).strip() == "":
             await ctx.send(embed=await (embed_help("explain [Word]")))
         else:

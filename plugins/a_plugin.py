@@ -1,4 +1,4 @@
-from .help_func import embed_help, msgf
+from help_func import embed_help, msgf
 from discord import (Embed)
 from art import text2art
 from discord.ext import (commands)
@@ -18,7 +18,6 @@ class Init(commands.Cog):
             for message_obj in message.mentions:
                 if message_obj.id == self.bot.user.id:
                     await message.channel.send(msgf('[C][BOT] Sorry I am Afk rn[C]'))
-
 
     @commands.command()
     async def afk(self, ctx):
@@ -44,7 +43,6 @@ class Init(commands.Cog):
                 embed.description = msgf("[C]Must be less than 7 alphabets[C]")
             await ctx.send(embed=embed)
 
-        
 
 def setup(bot) -> dict:
     return {"Object": Init(bot), "name": "Aro", "description": "Adds ability to use ascii art and afk system"}

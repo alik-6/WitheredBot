@@ -1,6 +1,6 @@
 from discord.ext import commands
 from discord import Game, Status
-from .help_func import embed_help, msgf
+from help_func import embed_help, msgf
 
 
 class Init(commands.Cog):
@@ -8,9 +8,9 @@ class Init(commands.Cog):
         self.bot = bot
 
     @commands.command()
-    async def gameset(self, ctx, name=""):
+    async def setgame(self, ctx, name=""):
         if str(name).strip() == "":
-            await ctx.send(embed=await (embed_help("gameset [Game]")))
+            await ctx.send(embed=await (embed_help("setgame [Game]")))
         else:
             activity = Game(name=name, type=4)
             await self.bot.change_presence(status=Status.dnd, activity=activity)
