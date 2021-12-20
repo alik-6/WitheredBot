@@ -8,20 +8,17 @@ class Init(commands.Cog):
         self.bot = bot
 
     @commands.command()
-    async def repeat(self, ctx, *message):
+    async def repeat(self, ctx, num, *message):
+        """Repeats|Spam a message"""
         message = " ".join(message)
-        num = int(message.split('x')[-1]) | 1
        
         if message.strip() == "":
-            await ctx.send(embed=await(embed_help("repeat [message]x[number]")))
+            await ctx.send(embed=await(embed_help(self.repeat, accepted_args=["num", "message"])))
             return
-        if num > 200:
-            await ctx.send(embed=await(embed_help("Must be less then 30")))
         else:
-            msg_to_send = message.replace(f"x{num}", "")
             for _ in range(num):
                 await sleep(0.8)        
-                await ctx.send(msgf(msg_to_send))
+                await ctx.send(msgf(message))
 
 
 def setup(bot) -> dict:

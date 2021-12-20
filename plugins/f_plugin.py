@@ -10,6 +10,7 @@ class Init(commands.Cog):
 
     @commands.command()
     async def flip(self, ctx):
+        """Flips The Coin"""
         await ctx.send(
             embed=Embed(
                 title="Flipping the coin",
@@ -19,12 +20,15 @@ class Init(commands.Cog):
 
     @commands.command()
     async def fmt(self, ctx, *msg):
+        """Formats The String"""
         args = " ".join(msg)
         if args.strip() == "":
             await ctx.send(
-                embed=await(embed_help(f"fmt [arg]", accepted_args=['message'], usage="Format the message")))
-        await ctx.message.delete()
-        await ctx.send(msgf(args))
+                embed=await(embed_help(self.fmt, accepted_args=['message'])))
+        else:
+            await ctx.message.delete()
+            await ctx.send(msgf(args))
+        # self.fmt
 
 
 def setup(bot) -> dict:

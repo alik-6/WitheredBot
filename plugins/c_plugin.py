@@ -9,9 +9,10 @@ class Init(commands.Cog):
 
     @commands.command()
     async def calc(self, ctx, *args):
+        """Caculates Basic Math"""
         args = " ".join(args)
         if args.strip() == "":
-            await ctx.send(embed=await (embed_help(f"calc [Equation]")))
+            await ctx.send(embed=await (embed_help(self.calc, accepted_args=["Equation"])))
         else:
             try:
                 calc_embed = Embed(title="Result", description=f"{args} = {eval(args)}")

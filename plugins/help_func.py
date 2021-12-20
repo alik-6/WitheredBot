@@ -5,15 +5,19 @@ from discord import (Embed, Colour)
 PREFIX = "!"
 
 
-async def embed_help(help="", accepted_args=[], usage=""):
+async def embed_help(parant, accepted_args=[]):
     embed = Embed(
-        title="Usage", description=msgf(f"[C]{PREFIX}{help}[C]"),
+        title="Usage"
     )
     if accepted_args:
+        description = f"[C]{PREFIX}{parant.name}"
+        for i in accepted_args:
+            description += f" [{i}]"
+        embed.description = msgf(description + "[C]")
         accepted_args = ', '.join(accepted_args)
         embed.add_field(name="Args", value=f"```{accepted_args}```")
-    if usage:
-        embed.add_field(name="Usage", value=f"```{usage}```")
+    if parant.help:
+        embed.add_field(name="Help", value=f"```{parant.help}```")
     return embed
 
 

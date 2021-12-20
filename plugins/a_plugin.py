@@ -21,6 +21,7 @@ class Init(commands.Cog):
 
     @commands.command()
     async def afk(self, ctx):
+        """Toggle Afk Mode"""
         if self.afk:
             await ctx.send(msgf('[Q/][BOT] Not Afk Anymore'))
             self.afk = False
@@ -31,9 +32,10 @@ class Init(commands.Cog):
 
     @commands.command()
     async def art(self, ctx, *args):
+        """Turns Text To Ascii Output"""
         args = " ".join(args)
         if args.strip() == "":
-            await ctx.send(embed=await (embed_help("art [Word]")))
+            await ctx.send(embed=await (embed_help(self.art, accepted_args=["[Word]"])))
         else:
             embed = Embed(title="Art")
             if len(args) < 7:

@@ -21,12 +21,14 @@ class Init(commands.Cog):
 
     @commands.command()
     async def stopowo(self, ctx):
+        """Stops The Mining"""
         await ctx.message.delete()
         await ctx.send('> `Stopped the minning`')
         self.stop_bot = True
 
     @commands.command(pass_context=True)
     async def startowo(self, ctx, channel_id=None):
+        """Start The OwO mining"""
         async def mine(c_id):
             await ctx.message.delete()
             await ctx.send(':pick: started')

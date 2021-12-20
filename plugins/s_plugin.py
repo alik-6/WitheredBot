@@ -9,8 +9,9 @@ class Init(commands.Cog):
 
     @commands.command()
     async def setgame(self, ctx, name=""):
+        """Set A Game As Your Activity"""
         if str(name).strip() == "":
-            await ctx.send(embed=await (embed_help("setgame [Game]")))
+            await ctx.send(embed=await (embed_help(self.setgame, accepted_args=["Game"])))
         else:
             activity = Game(name=name, type=4)
             await self.bot.change_presence(status=Status.dnd, activity=activity)

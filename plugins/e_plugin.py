@@ -11,9 +11,10 @@ class Init(commands.Cog):
 
     @commands.command()
     async def explain(self, ctx, word=""):
+        """Finds Meaning Online"""
         global dict_embed
         if str(word).strip() == "":
-            await ctx.send(embed=await (embed_help("explain [Word]")))
+            await ctx.send(embed=await (embed_help(self.explain, accepted_args=["Word"])))
         else:
             data = get(
                 f"https://api.dictionaryapi.dev/api/v2/entries/en/{word}"

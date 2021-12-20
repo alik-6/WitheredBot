@@ -11,10 +11,11 @@ class Init(commands.Cog):
 
     @commands.command()
     async def yt(self, ctx, *args):
+        """Search The Youtube"""
         args = " ".join(args).replace(" ", "-")
         if args.strip() == "":
             await ctx.send(
-                embed=await (embed_help(f"yt [arg]", accepted_args=['search'], usage="search youtube for stuff")))
+                embed=await (embed_help(self.yt, accepted_args=['Search'])))
         else:
             message = await ctx.send(embed=Embed(title="Youtube", description=f"searching for `{args}`"))
             request_yt = get(
