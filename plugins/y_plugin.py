@@ -2,7 +2,7 @@ import re
 from requests import get
 from discord.ext import commands
 from discord import Embed
-from .help_func import embed_help, msgf
+from help_func import embed_help, msgf
 
 
 class Init(commands.Cog):

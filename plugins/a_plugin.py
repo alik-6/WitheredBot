@@ -1,4 +1,4 @@
-from .help_func import embed_help, msgf
+from help_func import embed_help, msgf
 from discord import (Embed)
 from art import text2art
 from discord.ext import (commands)

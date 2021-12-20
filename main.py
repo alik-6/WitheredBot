@@ -1,13 +1,11 @@
 # [withered bot - v0.2]
 from discord import Embed, errors
 from discord.ext.commands import Bot
-from plugins.help_func import PREFIX, aprint, msgf
+from help_func import PREFIX, aprint, msgf, cfg
 from os import listdir, environ
 
 import time
 from importlib import import_module
-from json import load
-
 
 bot = Bot(
     self_bot=True,
@@ -75,24 +73,23 @@ def load_plugin():
 
 # [loads the token from config and run's the bot]
 def run_bot():
-    with open('token.json', 'r') as token:
-        try:
-            token = load(token).get('token')
-            if token == "none":
-                token = str(environ['TOKEN'])
+    try:
+        token = cfg()['token']
+        if token == "none":
+            token = str(environ['TOKEN'])
 
-            bot.run(token, bot=False)
-        except errors.LoginFailure:
-            aprint("Improper Token: Are you sure you passed the right token?")
+        bot.run(token, bot=False)
+    except errors.LoginFailure:
+        aprint("Improper Token: Are you sure you passed the right token?")
 
-        except errors.DiscordServerError:
-            aprint(
-                "It looks like discord server are having some issues,please try again later status: "
-                "https://discordstatus.com/")
-        except errors.ConnectionClosed:
-            aprint("Discord Unexpectedly Closed the connection")
-        finally:
-            pass
+    except errors.DiscordServerError:
+        aprint(
+            "It looks like discord server are having some issues,please try again later status: "
+            "https://discordstatus.com/")
+    except errors.ConnectionClosed:
+        aprint("Discord Unexpectedly Closed the connection")
+    finally:
+        pass
 
 
 if __name__ == "__main__":

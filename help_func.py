@@ -1,8 +1,16 @@
 import time, sys
 from discord import (Embed, Colour)
+from json import loads
 
 
-PREFIX = "!"
+def cfg():
+    with open('config.json', 'r') as file:
+        f = loads(file.read())
+
+    return f
+
+
+PREFIX = cfg()['prefix']
 
 
 async def embed_help(parant, accepted_args=[]):
@@ -48,4 +56,3 @@ def aprint(animation):
         sys.stdout.write("\r" + temp_str)
         sys.stdout.flush()
     sys.stdout.write("\n")
-
