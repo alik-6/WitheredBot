@@ -1,5 +1,5 @@
 import time, sys
-from discord import (Embed, Colour)
+from discord import (Embed)
 from json import loads
 
 
@@ -13,7 +13,7 @@ def cfg():
 PREFIX = cfg()['prefix']
 
 
-async def embed_help(parant, accepted_args=[]):
+async def embed_help(parant, accepted_args=None):
     embed = Embed(
         title="Usage"
     )
