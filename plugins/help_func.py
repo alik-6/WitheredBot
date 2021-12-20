@@ -15,9 +15,11 @@ async def embed_help(parant, accepted_args=[]):
             description += f" [{i}]"
         embed.description = msgf(description + "[C]")
         accepted_args = ', '.join(accepted_args)
-        embed.add_field(name="Args", value=f"```{accepted_args}```")
+        embed.add_field(name="Args", value=msgf(f"[C]{accepted_args}[C]"))
     if parant.help:
-        embed.add_field(name="Help", value=f"```{parant.help}```")
+        embed.add_field(name=f"Help", value=msgf(f"[C]{parant.help}[C]"))
+    if parant.aliases:
+        embed.add_field(name="Aliases", value=msgf(f"[C]{', '.join(parant.aliases)}[C]"))
     return embed
 
 

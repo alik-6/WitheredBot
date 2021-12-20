@@ -18,7 +18,7 @@ class Init(commands.Cog):
             )
         )
 
-    @commands.command()
+    @commands.command(aliases=["format"])
     async def fmt(self, ctx, *msg):
         """Formats The String"""
         args = " ".join(msg)
@@ -28,7 +28,7 @@ class Init(commands.Cog):
         else:
             await ctx.message.delete()
             await ctx.send(msgf(args))
-        # self.fmt
+
 
 
 def setup(bot) -> dict:
