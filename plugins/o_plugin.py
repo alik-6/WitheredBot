@@ -53,4 +53,8 @@ class Init(commands.Cog):
             
 
 def setup(bot) -> dict:
-    return {"Object": Init(bot), "name": "OwOminie", "description": "Adds ability to Mine OwO coins "}
+    return {
+        "Object": Init(bot),
+        "name": "OwOminie",
+        "description": "Adds ability to Mine OwO coins "
+    }

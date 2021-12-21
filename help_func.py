@@ -10,25 +10,35 @@ def cfg():
     return f
 
 
-PREFIX = cfg()['prefix']
+def get_prefix():
+    return cfg()['prefix']
 
 
-async def embed_help(parant, accepted_args=None):
-    embed = Embed(
-        title="Usage"
-    )
-    if accepted_args:
-        description = f"[C]{PREFIX}{parant.name}"
-        for i in accepted_args:
-            description += f" [{i}]"
-        embed.description = msgf(description + "[C]")
-        accepted_args = ', '.join(accepted_args)
-        embed.add_field(name="Args", value=msgf(f"[C]{accepted_args}[C]"))
-    if parant.help:
-        embed.add_field(name=f"Help", value=msgf(f"[C]{parant.help}[C]"))
-    if parant.aliases:
-        embed.add_field(name="Aliases", value=msgf(f"[C]{', '.join(parant.aliases)}[C]"))
-    return embed
+class EmbedHelp:
+    def __init__(self, parent, accepted_args=None):
+        self.parent = parent
+        self.accepted_args = accepted_args
+
+    async def __call__(self):
+        embed = Embed(
+           title="Usage"
+        )
+        if self.accepted_args:
+            description = f"[C]{get_prefix()}{self.parent.name}"
+            for i in self.accepted_args:
+                description += f" [{i}]"
+                embed.description = msgf(description + "[C]")
+                self.accepted_args = ', '.join(self.accepted_args)
+                embed.add_field(name="Args", value=msgf(f"[C]{self.accepted_args}[C]"))
+        if self.parent.help:
+            embed.add_field(name=f"Help", value=msgf(f"[C]{self.parent.help}[C]"))
+        if self.parent.aliases:
+            embed.add_field(name="Aliases", value=msgf(f"[C]{', '.join(self.parent.aliases)}[C]"))
+
+        return embed
+
+    def __repr__(self):
+        print(f"({self.parent}, {self.accepted_args})")
 
 
 def msgf(s):

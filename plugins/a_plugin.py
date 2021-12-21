@@ -1,4 +1,4 @@
-from help_func import embed_help, msgf
+from help_func import EmbedHelp, msgf
 from discord import (Embed)
 from art import text2art
 from discord.ext import (commands)
@@ -35,7 +35,8 @@ class Init(commands.Cog):
         """Turns Text To Ascii Output"""
         args = " ".join(args)
         if args.strip() == "":
-            await ctx.send(embed=await (embed_help(self.art, accepted_args=["[Word]"])))
+            help = EmbedHelp(self.art, accepted_args=["[Word]"])
+            await ctx.send(embed=await(help()))
         else:
             embed = Embed(title="Art")
             if len(args) < 7:
@@ -47,4 +48,8 @@ class Init(commands.Cog):
 
 
 def setup(bot) -> dict:
-    return {"Object": Init(bot), "name": "Aro", "description": "Adds ability to use ascii art and afk system"}
+    return {
+        "Object": Init(bot),
+        "name": "Aro",
+        "description": "Adds ability to use ascii art and afk system"
+    }

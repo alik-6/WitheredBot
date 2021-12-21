@@ -1,5 +1,5 @@
 from discord.ext import commands
-from help_func import embed_help, msgf
+from help_func import EmbedHelp, msgf
 from asyncio import  sleep
 
 
@@ -13,7 +13,8 @@ class Init(commands.Cog):
         message = " ".join(message)
        
         if message.strip() == "":
-            await ctx.send(embed=await(embed_help(self.repeat, accepted_args=["num", "message"])))
+            help = EmbedHelp(self.repeat, accepted_args=["num", "message"])
+            await ctx.send(embed=await(help()))
             return
         else:
             for _ in range(num):
@@ -22,4 +23,8 @@ class Init(commands.Cog):
 
 
 def setup(bot) -> dict:
-    return {"Object": Init(bot), "name": "Repeat it!", "description": "Adds Ability to Repeat|Spam a Message"}
+    return {
+        "Object": Init(bot),
+        "name": "Repeat it!",
+        "description": "Adds Ability to Repeat|Spam a Message"
+    }

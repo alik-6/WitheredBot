@@ -2,7 +2,7 @@ import re
 from requests import get
 from discord.ext import commands
 from discord import Embed
-from help_func import embed_help, msgf
+from help_func import EmbedHelp, msgf
 
 
 class Init(commands.Cog):
@@ -14,8 +14,10 @@ class Init(commands.Cog):
         """Search The Youtube"""
         args = " ".join(args).replace(" ", "-")
         if args.strip() == "":
+            help = EmbedHelp(self.yt, accepted_args=['Search'])
             await ctx.send(
-                embed=await (embed_help(self.yt, accepted_args=['Search'])))
+                embed=await(help())
+            )
         else:
             message = await ctx.send(embed=Embed(title="Youtube", description=f"searching for `{args}`"))
             request_yt = get(
@@ -31,4 +33,8 @@ class Init(commands.Cog):
 
 
 def setup(bot) -> dict:
-    return {"Object": Init(bot), "name": "YouTube", "description": "Adds Ability to Search Youtube videos"}
+    return {
+        "Object": Init(bot),
+        "name": "YouTube",
+        "description": "Adds Ability to Search Youtube videos"
+    }

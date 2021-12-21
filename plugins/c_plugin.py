@@ -1,5 +1,5 @@
 from discord.ext import (commands)
-from help_func import embed_help
+from help_func import EmbedHelp
 from discord import (Embed)
 
 
@@ -12,7 +12,8 @@ class Init(commands.Cog):
         """Caculates Basic Math"""
         args = " ".join(args)
         if args.strip() == "":
-            await ctx.send(embed=await (embed_help(self.calc, accepted_args=["Equation"])))
+            help = EmbedHelp(self.calc, accepted_args=["Equation"])
+            await ctx.send(embed=await(help()))
         else:
             try:
                 calc_embed = Embed(title="Result", description=f"{args} = {eval(args)}")
@@ -28,4 +29,8 @@ class Init(commands.Cog):
 
 
 def setup(bot) -> dict:
-    return {"Object": Init(bot), "name": "Calc", "description": "Adds the ability to do basic math"}
+    return {
+        "Object": Init(bot),
+        "name": "Calc",
+        "description": "Adds the ability to do basic math"
+    }

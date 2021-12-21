@@ -1,5 +1,5 @@
 from discord.ext import commands
-from help_func import embed_help, msgf
+from help_func import EmbedHelp, msgf
 from random import choice
 from discord import Embed
 
@@ -23,14 +23,18 @@ class Init(commands.Cog):
         """Formats The String"""
         args = " ".join(msg)
         if args.strip() == "":
+            help = EmbedHelp(self.fmt, accepted_args=['message'])
             await ctx.send(
-                embed=await(embed_help(self.fmt, accepted_args=['message'])))
+                embed=await(help())
+            )
         else:
             await ctx.message.delete()
             await ctx.send(msgf(args))
 
 
-
 def setup(bot) -> dict:
-    return {"Object": Init(bot), "name": "Formatter", "description": "Adds Ability to Format Messages"}
-
+    return {
+        "Object": Init(bot),
+        "name": "Formatter",
+        "description": "Adds Ability to Format Messages"
+    }

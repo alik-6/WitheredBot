@@ -1,7 +1,7 @@
 # [withered bot - v0.2]
 from discord import Embed, errors
 from discord.ext.commands import Bot
-from help_func import PREFIX, aprint, msgf, cfg
+from help_func import aprint, msgf, get_prefix, cfg
 from os import listdir, environ
 
 import time
@@ -9,10 +9,11 @@ from importlib import import_module
 
 bot = Bot(
     self_bot=True,
-    command_prefix=PREFIX,
+    command_prefix=get_prefix(),
     help_command=None,
     case_insensitive=True
 )
+
 Load_time = 0
 Loaded_cogs = []
 
@@ -28,7 +29,7 @@ async def help(ctx):
     help_embed = Embed(title="Help", description="List all commands")
     for key in bot.walk_commands():
         if str(key) not in excluded:
-            help_embed.add_field(name=f"{PREFIX}{key}", value=msgf(f"[Q/]{key.help}"))
+            help_embed.add_field(name=f"{get_prefix()}{key}", value=msgf(f"[Q/]{key.help}"))
 
     await ctx.send(embed=help_embed)
 
