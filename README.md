@@ -8,9 +8,10 @@ An Extensible Discord Self bot written in python
 3. `pip install -r requirements.txt`
 4. Add Token in token.json
 ## Features
-1. Built in youtube Search
-2. Afk System
-3. Dictionary Word Search and more..
+1  Added Ability to add Plugins
+2. Built in youtube Search
+3. Afk System
+4. Dictionary Word Search and more..
 
 ## How to get you're Token?
 link: https://pcstrike.com/how-to-get-discord-token/
