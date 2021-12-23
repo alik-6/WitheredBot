@@ -1,7 +1,7 @@
 from discord.ext import commands
 import asyncio
 from random import randint
-from help_func import aprint
+from help_func import print
 
 
 class Init(commands.Cog):
@@ -12,11 +12,11 @@ class Init(commands.Cog):
     async def sleep(self, i: int):
         while i != 0:
             if self.stop_bot:
-                aprint("Broke Sleep Loop")
+                print("Broke Sleep Loop")
                 break
             else:
                 await asyncio.sleep(1)
-                aprint(f"Run again in {i}s")
+                print(f"Run again in {i}s")
                 i -= 1
 
     @commands.command()
@@ -36,14 +36,14 @@ class Init(commands.Cog):
             channel = self.bot.get_channel(int(c_id))
             while not self.stop_bot:
                 async with ctx.typing():
-                    aprint("[BOT] Running Batch")
+                    print("[BOT] Running Batch")
                     await self.sleep(randint(5, 15))
                     await channel.send('owoh')
                     await self.sleep(randint(5, 12))
                     await channel.send('owo sell all')
                     await self.sleep(randint(5, 16))
                     await channel.send('owo cash')
-                    sleep_time = 50 + randint(20,30) 
+                    sleep_time = 50 + randint(20, 30)
                     await self.sleep(sleep_time)
 
         if channel_id is None:

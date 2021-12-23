@@ -1,6 +1,8 @@
-import time, sys
-from discord import (Embed)
+import sys
+import time
 from json import loads
+
+from discord import (Embed)
 
 
 def cfg():
@@ -50,7 +52,7 @@ def msgf(s):
         "[L]": "`",
         "[Q/]": "> ",
     }
-    sk = []
+
     for key, val in format_info.items():
         if key in s:
             s = s.replace(key, val)
@@ -58,7 +60,7 @@ def msgf(s):
     return sk
 
 
-def aprint(animation):
+def print(animation):
     temp_str = "[ BOT ] "
     for i in animation:
         temp_str += i

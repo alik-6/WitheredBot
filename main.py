@@ -1,7 +1,7 @@
 # [withered bot - v0.2]
 from discord import Embed, errors
 from discord.ext.commands import Bot
-from help_func import aprint, msgf, get_prefix, cfg
+from help_func import print, msgf, get_prefix, cfg
 from os import listdir, environ
 
 import time
@@ -20,7 +20,7 @@ Loaded_cogs = []
 
 @bot.event
 async def on_ready():
-    aprint("Started")
+    print("Started")
 
 
 @bot.command()
@@ -64,12 +64,12 @@ def load_plugin():
                 globals()['Loaded_cogs'].append(data)
                 bot.add_cog(data['Object'])
                 globals()['Load_time'] += round(abs(t - time.time() * 1000))
-                aprint(f"Plugin \"{data['name']}\" Loaded!")
+                print(f"Plugin \"{data['name']}\" Loaded!")
             except ImportError:
-                aprint(f"Plugin Loading Failed!")
+                print(f"Plugin Loading Failed!")
             finally:
                 pass
-    aprint(f"Loaded All Plugins In {Load_time}ms")
+    print(f"Loaded All Plugins In {Load_time}ms")
 
 
 # [loads the token from config and run's the bot]
@@ -81,14 +81,14 @@ def run_bot():
 
         bot.run(token, bot=False)
     except errors.LoginFailure:
-        aprint("Improper Token: Are you sure you passed the right token?")
+        print("Improper Token: Are you sure you passed the right token?")
 
     except errors.DiscordServerError:
-        aprint(
+        print(
             "It looks like discord server are having some issues,please try again later status: "
             "https://discordstatus.com/")
     except errors.ConnectionClosed:
-        aprint("Discord Unexpectedly Closed the connection")
+        print("Discord Unexpectedly Closed the connection")
     finally:
         pass
 
