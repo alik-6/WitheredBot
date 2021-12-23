@@ -1,6 +1,7 @@
 from discord.ext import commands
 from discord import Game, Status
-from libs.help import EmbedHelp, to_discord_str
+from libs.help import EmbedHelp
+from libs.extras import to_discord_str
 
 
 class Init(commands.Cog):

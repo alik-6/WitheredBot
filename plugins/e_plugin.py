@@ -1,6 +1,7 @@
 from discord.ext import commands
 from requests import get
-from libs.help import EmbedHelp, to_discord_str
+from libs.help import EmbedHelp
+from libs.extras import to_discord_str
 from discord import Embed
 
 

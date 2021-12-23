@@ -1,16 +1,18 @@
 # [withered bot - v0.2]
 from discord import Embed, errors
 from discord.ext.commands import Bot
-from libs.help import print, to_discord_str, get_prefix, cfg
+from libs.help import print
+from libs.extras import to_discord_str
+from libs.config import BotConfig as Config
 from os import listdir, environ
-import json
 
 import time
 from importlib import import_module
+c = Config()
 
 bot = Bot(
     self_bot=True,
-    command_prefix=get_prefix(),
+    command_prefix=c.get('prefix'),
     help_command=None,
     case_insensitive=True
 )
@@ -30,7 +32,7 @@ async def help(ctx):
     help_embed = Embed(title="Help", description="List all commands")
     for key in bot.walk_commands():
         if str(key) not in excluded:
-            help_embed.add_field(name=f"{get_prefix()}{key}", value=to_discord_str(f"[Q/]{key.help}"))
+            help_embed.add_field(name=f"{c.get('prefix')}{key}", value=to_discord_str(f"[Q/]{key.help}"))
 
     await ctx.send(embed=help_embed)
 
@@ -56,16 +58,10 @@ async def about(ctx):
 
 @bot.command()
 async def setprefix(ctx, prefix=""):
-    if prefix.strip() != "":
-        with open('config.json', 'r') as w:
-            x = json.loads(w.read())
-
-        with open('config.json', 'w') as w:
-            x['prefix'] = prefix
-            w.write(json.dumps(x, indent=4))
-
-        q = bot.command_prefix = prefix
-    await ctx.send(to_discord_str(f"[Q/]Prefix changed to [L]{q}[L]"))
+    if prefix.strip():
+        c.change('prefix', prefix)
+        prefix = bot.command_prefix = c.get('prefix')
+        await ctx.send(to_discord_str(f"[Q/]Prefix changed to [L]{prefix}[L]"))
 
 
 # [loads plugins if any]
@@ -90,7 +86,7 @@ def load_plugin():
 # [loads the token from config and run's the bot]
 def run_bot():
     try:
-        token = cfg()['token']
+        token = c.get('token')
         if token == "none":
             token = str(environ['TOKEN'])
 

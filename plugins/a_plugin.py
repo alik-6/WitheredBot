@@ -1,4 +1,5 @@
-from libs.help import EmbedHelp, to_discord_str
+from libs.help import EmbedHelp
+from libs.extras import to_discord_str
 from discord import (Embed)
 from art import text2art
 from discord.ext import (commands)

@@ -1,5 +1,6 @@
 from discord.ext import commands
-from libs.help import EmbedHelp, to_discord_str
+from libs.help import EmbedHelp
+from libs.extras import to_discord_str
 from random import choice
 from discord import Embed
 

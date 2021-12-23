@@ -1,19 +1,8 @@
 import sys
 import time
-from json import loads
-
+from libs.extras import to_discord_str
 from discord import Embed
-
-
-def cfg():
-    with open('config.json', 'r') as file:
-        f = loads(file.read())
-
-    return f
-
-
-def get_prefix():
-    return cfg()['prefix']
+from libs.config import BotConfig as Config
 
 
 def print(animation):
@@ -30,13 +19,14 @@ class EmbedHelp:
     def __init__(self, parent, accepted_args=None):
         self.parent = parent
         self.accepted_args = accepted_args
+        self.prefix = Config().get('prefix')
 
     async def __call__(self):
         embed = Embed(
             title="Usage"
         )
         if self.accepted_args:
-            description = f"[C]{get_prefix()}{self.parent.name}"
+            description = f"[C]{self.prefix}{self.parent.name}"
             for i in self.accepted_args:
                 description += f" [{i}]"
                 embed.description = to_discord_str(description + "[C]")
@@ -53,18 +43,3 @@ class EmbedHelp:
         print(f"({self.parent}, {self.accepted_args})")
 
 
-def to_discord_str(s):
-    format_info = {
-        "[B]": "**",
-        "[I]": "*",
-        "[H]": "||",
-        "[C]": "```",
-        "[L]": "`",
-        "[Q/]": "> ",
-    }
-
-    for key, val in format_info.items():
-        if key in s:
-            s = s.replace(key, val)
-    sk = s
-    return sk
