@@ -2,7 +2,7 @@ import json
 from os import path
 
 
-class BotConfig:
+class Config:
     def __init__(self):
         self.config_name = 'config.json'
         self.config = self.load()

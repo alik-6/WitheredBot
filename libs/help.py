@@ -2,17 +2,7 @@ import sys
 import time
 from libs.extras import to_discord_str
 from discord import Embed
-from libs.config import BotConfig as Config
-
-
-def print(animation):
-    temp_str = "[ BOT ] "
-    for i in animation:
-        temp_str += i
-        time.sleep(0.01)
-        sys.stdout.write("\r" + temp_str)
-        sys.stdout.flush()
-    sys.stdout.write("\n")
+from libs.config import Config
 
 
 class EmbedHelp:
@@ -41,5 +31,3 @@ class EmbedHelp:
 
     def __repr__(self):
         print(f"({self.parent}, {self.accepted_args})")
-
-

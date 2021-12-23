@@ -1,9 +1,8 @@
 # [withered bot - v0.2]
 from discord import Embed, errors
 from discord.ext.commands import Bot
-from libs.help import print
-from libs.extras import to_discord_str
-from libs.config import BotConfig as Config
+from libs.extras import to_discord_str, print
+from libs.config import Config
 from os import listdir, environ
 
 import time
