@@ -2,7 +2,7 @@ import sys
 import time
 from json import loads
 
-from discord import (Embed)
+from discord import Embed
 
 
 def cfg():
@@ -16,6 +16,16 @@ def get_prefix():
     return cfg()['prefix']
 
 
+def print(animation):
+    temp_str = "[ BOT ] "
+    for i in animation:
+        temp_str += i
+        time.sleep(0.01)
+        sys.stdout.write("\r" + temp_str)
+        sys.stdout.flush()
+    sys.stdout.write("\n")
+
+
 class EmbedHelp:
     def __init__(self, parent, accepted_args=None):
         self.parent = parent
@@ -23,19 +33,19 @@ class EmbedHelp:
 
     async def __call__(self):
         embed = Embed(
-           title="Usage"
+            title="Usage"
         )
         if self.accepted_args:
             description = f"[C]{get_prefix()}{self.parent.name}"
             for i in self.accepted_args:
                 description += f" [{i}]"
-                embed.description = msgf(description + "[C]")
+                embed.description = to_discord_str(description + "[C]")
                 self.accepted_args = ', '.join(self.accepted_args)
-                embed.add_field(name="Args", value=msgf(f"[C]{self.accepted_args}[C]"))
+                embed.add_field(name="Args", value=to_discord_str(f"[C]{self.accepted_args}[C]"))
         if self.parent.help:
-            embed.add_field(name=f"Help", value=msgf(f"[C]{self.parent.help}[C]"))
+            embed.add_field(name=f"Help", value=to_discord_str(f"[C]{self.parent.help}[C]"))
         if self.parent.aliases:
-            embed.add_field(name="Aliases", value=msgf(f"[C]{', '.join(self.parent.aliases)}[C]"))
+            embed.add_field(name="Aliases", value=to_discord_str(f"[C]{', '.join(self.parent.aliases)}[C]"))
 
         return embed
 
@@ -43,7 +53,7 @@ class EmbedHelp:
         print(f"({self.parent}, {self.accepted_args})")
 
 
-def msgf(s):
+def to_discord_str(s):
     format_info = {
         "[B]": "**",
         "[I]": "*",
@@ -58,13 +68,3 @@ def msgf(s):
             s = s.replace(key, val)
     sk = s
     return sk
-
-
-def print(animation):
-    temp_str = "[ BOT ] "
-    for i in animation:
-        temp_str += i
-        time.sleep(0.01)
-        sys.stdout.write("\r" + temp_str)
-        sys.stdout.flush()
-    sys.stdout.write("\n")

@@ -1,5 +1,5 @@
 from discord.ext import commands
-from help_func import EmbedHelp, msgf
+from libs.help import EmbedHelp, to_discord_str
 from asyncio import sleep
 
 
@@ -19,7 +19,7 @@ class Init(commands.Cog):
         else:
             for _ in range(num):
                 await sleep(delay)
-                await ctx.send(msgf(message))
+                await ctx.send(to_discord_str(message))
 
 
 def setup(bot) -> dict:

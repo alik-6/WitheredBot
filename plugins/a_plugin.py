@@ -1,4 +1,4 @@
-from help_func import EmbedHelp, msgf
+from libs.help import EmbedHelp, to_discord_str
 from discord import (Embed)
 from art import text2art
 from discord.ext import (commands)
@@ -13,21 +13,21 @@ class Init(commands.Cog):
     async def on_message(self, message):
         is_afk = self.afk
         if not message.guild and message.author != self.bot.user and is_afk:
-            await message.channel.send(msgf('[C][BOT] Sorry I am Afk rn[C]'))
+            await message.channel.send(to_discord_str('[C][BOT] Sorry I am Afk rn[C]'))
         if message.guild and is_afk and message.author != self.bot.user:
             for message_obj in message.mentions:
                 if message_obj.id == self.bot.user.id:
-                    await message.channel.send(msgf('[C][BOT] Sorry I am Afk rn[C]'))
+                    await message.channel.send(to_discord_str('[C][BOT] Sorry I am Afk rn[C]'))
 
     @commands.command()
     async def afk(self, ctx):
         """Toggle Afk Mode"""
         if self.afk:
-            await ctx.send(msgf('[Q/][BOT] Not Afk Anymore'))
+            await ctx.send(to_discord_str('[Q/][BOT] Not Afk Anymore'))
             self.afk = False
             # break
         else:
-            await ctx.send(msgf('[Q/][BOT]  Afk system activated '))
+            await ctx.send(to_discord_str('[Q/][BOT]  Afk system activated '))
             self.afk = True
 
     @commands.command()
@@ -41,9 +41,9 @@ class Init(commands.Cog):
             embed = Embed(title="Art")
             if len(args) < 7:
                 art = text2art(args)
-                embed.description = msgf(f"[C]{art}[C]")
+                embed.description = to_discord_str(f"[C]{art}[C]")
             else:
-                embed.description = msgf("[C]Must be less than 7 alphabets[C]")
+                embed.description = to_discord_str("[C]Must be less than 7 alphabets[C]")
             await ctx.send(embed=embed)
 
 

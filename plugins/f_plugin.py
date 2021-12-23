@@ -1,5 +1,5 @@
 from discord.ext import commands
-from help_func import EmbedHelp, msgf
+from libs.help import EmbedHelp, to_discord_str
 from random import choice
 from discord import Embed
 
@@ -14,7 +14,7 @@ class Init(commands.Cog):
         await ctx.send(
             embed=Embed(
                 title="Flipping the coin",
-                description=msgf(f"[B]{choice(['Head', 'Tail'])}[B] wins"),
+                description=to_discord_str(f"[B]{choice(['Head', 'Tail'])}[B] wins"),
             )
         )
 
@@ -29,7 +29,7 @@ class Init(commands.Cog):
             )
         else:
             await ctx.message.delete()
-            await ctx.send(msgf(args))
+            await ctx.send(to_discord_str(args))
 
 
 def setup(bot) -> dict:

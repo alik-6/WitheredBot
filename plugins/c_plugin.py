@@ -1,5 +1,5 @@
 from discord.ext import (commands)
-from help_func import EmbedHelp
+from libs.help import EmbedHelp
 from discord import (Embed)
 
 

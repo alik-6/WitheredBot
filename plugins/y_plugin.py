@@ -2,7 +2,7 @@ import re
 from requests import get
 from discord.ext import commands
 from discord import Embed
-from help_func import EmbedHelp, msgf
+from libs.help import EmbedHelp, to_discord_str
 
 
 class Init(commands.Cog):
@@ -26,7 +26,7 @@ class Init(commands.Cog):
             yt_link = re.findall(r"watch\?v=(\S{11})", request_yt.content.decode())
             await message.delete()
             await ctx.send(
-                content=msgf(
+                content=to_discord_str(
                     f"[Q/][H]https://www.youtube.com/watch?v={yt_link[0]}[H]"
                 ), embed=None
             )

@@ -1,6 +1,6 @@
 from discord.ext import commands
 from discord import Game, Status
-from help_func import EmbedHelp, msgf
+from libs.help import EmbedHelp, to_discord_str
 
 
 class Init(commands.Cog):
@@ -16,7 +16,7 @@ class Init(commands.Cog):
         else:
             activity = Game(name=name, type=4)
             await self.bot.change_presence(status=Status.dnd, activity=activity)
-            await ctx.send(msgf(f"[B]{name}[B] set as default game"))
+            await ctx.send(to_discord_str(f"[B]{name}[B] set as default game"))
 
 
 def setup(bot) -> dict:

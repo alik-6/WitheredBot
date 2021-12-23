@@ -1,7 +1,6 @@
 from discord.ext import commands
 from requests import get
-
-from help_func import EmbedHelp, msgf
+from libs.help import EmbedHelp, to_discord_str
 from discord import Embed
 
 
@@ -25,17 +24,17 @@ class Init(commands.Cog):
                 word = data.get('word')
                 e.title = word[0].upper() + word[1:]
             if definitions.get('definition'):
-                e.description = msgf(f"[Q/]{definitions.get('definition')}")
+                e.description = to_discord_str(f"[Q/]{definitions.get('definition')}")
 
             if definitions.get('example'):
-                e.add_field(name="Example", value=msgf(f"[Q/]{definitions.get('example')}"))
+                e.add_field(name="Example", value=to_discord_str(f"[Q/]{definitions.get('example')}"))
 
             if definitions.get('synonyms'):
-                e.add_field(name="Synonyms", value=msgf(f"[Q/]{', '.join(definitions.get('synonyms'))}"))
+                e.add_field(name="Synonyms", value=to_discord_str(f"[Q/]{', '.join(definitions.get('synonyms'))}"))
             if definitions.get('antonyms'):
-                e.add_field(name="Antonyms", value=msgf(f"[Q/]{', '.join(definitions.get('antonyms'))}"))
+                e.add_field(name="Antonyms", value=to_discord_str(f"[Q/]{', '.join(definitions.get('antonyms'))}"))
             if data.get('meanings')[0].get('partOfSpeech'):
-                e.add_field(name="Part of Speach", value=msgf(f"[Q/]{data.get('meanings')[0].get('partOfSpeech')}"))
+                e.add_field(name="Part of Speach", value=to_discord_str(f"[Q/]{data.get('meanings')[0].get('partOfSpeech')}"))
             else:
                 await ctx.send("unknown word")
             await ctx.send(embed=e)
