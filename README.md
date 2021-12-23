@@ -1,5 +1,5 @@
 # WitheredBot
-A Discord Self bot written in python 
+An Extensible Discord Self bot written in python 
 ## Requirement
 `Python >= 3.6`
 ## How to Configure
