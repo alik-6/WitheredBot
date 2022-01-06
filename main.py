@@ -2,16 +2,16 @@
 from discord import Embed, errors
 from discord.ext.commands import Bot
 from libs.extras import to_discord_str, print
-from libs.config import Config
+from libs.config import get, update
 from os import listdir, environ
 
 import time
 from importlib import import_module
-c = Config()
+
 
 bot = Bot(
     self_bot=True,
-    command_prefix=c.get('prefix'),
+    command_prefix=get('prefix'),
     help_command=None,
     case_insensitive=True
 )
@@ -31,7 +31,7 @@ async def help(ctx):
     help_embed = Embed(title="Help", description="List all commands")
     for key in bot.walk_commands():
         if str(key) not in excluded:
-            help_embed.add_field(name=f"{c.get('prefix')}{key}", value=to_discord_str(f"[Q/]{key.help}"))
+            help_embed.add_field(name=f"{get('prefix')}{key}", value=to_discord_str(f"[Q/]{key.help}"))
 
     await ctx.send(embed=help_embed)
 
@@ -58,8 +58,8 @@ async def about(ctx):
 @bot.command()
 async def setprefix(ctx, prefix=""):
     if prefix.strip():
-        c.change('prefix', prefix)
-        prefix = bot.command_prefix = c.get('prefix')
+        update('prefix', prefix)
+        prefix = bot.command_prefix = get('prefix')
         await ctx.send(to_discord_str(f"[Q/]Prefix changed to [L]{prefix}[L]"))
 
 
@@ -85,8 +85,8 @@ def load_plugin():
 # [loads the token from config and run's the bot]
 def run_bot():
     try:
-        token = c.get('token')
-        if token == "none":
+        token = get('token')
+        if not token:
             token = str(environ['TOKEN'])
 
         bot.run(token, bot=False)

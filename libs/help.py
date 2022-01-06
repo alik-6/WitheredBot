@@ -2,14 +2,14 @@ import sys
 import time
 from libs.extras import to_discord_str
 from discord import Embed
-from libs.config import Config
+from .config import get
 
 
 class EmbedHelp:
     def __init__(self, parent, accepted_args=None):
         self.parent = parent
         self.accepted_args = accepted_args
-        self.prefix = Config().get('prefix')
+        self.prefix = get('prefix')
 
     async def __call__(self):
         embed = Embed(

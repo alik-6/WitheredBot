@@ -1,48 +1,58 @@
-import json
-from os import path
+import sqlite3
+
+DATABASE_NAME = "Settings.db"
+def database():
+    connection = sqlite3.connect(DATABASE_NAME)
+    conn = connection.cursor()
+    conn.execute("""
+    CREATE TABLE IF NOT EXISTS Settings (
+        key TEXT NOT NULL UNIQUE,
+        value TEXT
+    );
+    """)
+    connection.commit()
+    connection.close()
+
+def get(key: str):
+    database()
+    connection = sqlite3.connect(DATABASE_NAME)
+    conn = connection.cursor()
+    value = conn.execute("SELECT * FROM Settings where key = ?;", (key,)).fetchone()
+    connection.commit()
+    connection.close()
+    if value:
+        return value[1]
+    else:
+        return
 
 
-class Config:
-    def __init__(self):
-        self.config_name = 'config.json'
-        self.config = self.load()
 
-    def load(self):
-        if path.exists(self.config_name):
-            with open(self.config_name, 'r') as r:
-                return json.loads(r.read())
-        else:
-            raise Exception("No Config file Found")
+def set(key:str, value: str):
+    database()
+    connection = sqlite3.connect(DATABASE_NAME)
+    conn = connection.cursor()
+    try:
+        conn.execute("INSERT INTO Settings(key, value) VALUES(? , ?);", (key, value,))
+        connection.commit()
+        connection.close()
+        return {'Added': 'Key Added'}
+    except sqlite3.IntegrityError:
+        return {'Error': 'Key Already Exist'}
 
-    def get(self, name):
-        if name in self.config:
-            return self.config.get(name)
-        else:
-            raise Exception(f"json['{name}'] key doesn't exists")
+def delete(key: str):
+    database()
+    connection = sqlite3.connect(DATABASE_NAME)
+    conn = connection.cursor()
+    conn.execute("DELETE FROM Settings WHERE key = ?",(key,))
+    connection.commit()
+    connection.close()
 
-    def write(self):
-        with open(self.config_name, 'w') as w:
-            w.write(json.dumps(self.config))
+def update(key:str, value: str):
+    database()
+    connection = sqlite3.connect(DATABASE_NAME)
+    conn = connection.cursor()
+    value = conn.execute(f"UPDATE Settings SET value = '{value}' WHERE key = '{key}'")
+    connection.commit()
+    connection.close()
 
-    def change(self, name, value):
-        if name in self.config:
-            self.config[name] = value
-            self.write()
-        else:
-            raise Exception(f"json['{name}'] key doesn't exists")
 
-    def add(self, name, value):
-        if name in self.config:
-            raise Exception(f"json['{name}'] already exists")
-        else:
-            self.config[name] = value
-            self.write()
-
-    def delete(self, name):
-        if name in self.config and name in ['prefix', 'token']:
-            raise Exception(f"json['{name}'] cannot delete key")
-        if name not in self.config:
-            raise Exception(f"json['{name}'] key doesn't exist")
-        else:
-            del self.config[name]
-            self.write()

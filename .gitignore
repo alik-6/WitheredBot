@@ -133,3 +133,5 @@ dmypy.json
 
 #custom
 venv/config.json
+Settings.db
+.vscode/settings.json
