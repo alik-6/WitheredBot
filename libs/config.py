@@ -23,7 +23,8 @@ def get(key: str):
     if value:
         return value[1]
     else:
-        return
+        return None
+        
 
 
 

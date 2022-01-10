@@ -1,13 +1,10 @@
-# [withered bot - v0.2]
+# [withered bot - v0.3]
 from discord import Embed, errors
 from discord.ext.commands import Bot
 from libs.extras import to_discord_str, print
 from libs.config import get, update
-from os import listdir, environ
-
-import time
-from importlib import import_module
-
+from load_plugins import LoadPlugin
+from os import environ
 
 bot = Bot(
     self_bot=True,
@@ -17,7 +14,7 @@ bot = Bot(
 )
 
 Load_time = 0
-Loaded_cogs = []
+loaded_plugins = []
 
 
 @bot.event
@@ -38,8 +35,8 @@ async def help(ctx):
 
 @bot.command(aliases=['pl'])
 async def plugins(ctx):
-    e = Embed(title="Installed Plugins", description=f"{len(Loaded_cogs)} plugins Installed")
-    for i in Loaded_cogs:
+    e = Embed(title="Installed Plugins", description=f"{len(loaded_plugins)} plugins Installed")
+    for i in loaded_plugins:
         e.add_field(name=i['name'], value=f"> {i['description']}", inline=False)
     e.set_footer(text=f"Load time: {Load_time}ms")
     await ctx.send(embed=e.set_thumbnail(url=ctx.author.avatar_url))
@@ -63,23 +60,7 @@ async def setprefix(ctx, prefix=""):
         await ctx.send(to_discord_str(f"[Q/]Prefix changed to [L]{prefix}[L]"))
 
 
-# [loads plugins if any]
-def load_plugin():
-    for file in listdir("./plugins"):
-        t = time.time() * 1000
-        if file.endswith("_plugin.py"):
-            try:
-                class_plug = import_module(f'plugins.{file.replace(".py", "")}')
-                data = class_plug.setup(bot)
-                globals()['Loaded_cogs'].append(data)
-                bot.add_cog(data['Object'])
-                globals()['Load_time'] += round(abs(t - time.time() * 1000))
-                print(f"Plugin \"{data['name']}\" Loaded!")
-            except ImportError:
-                print(f"Plugin Loading Failed!")
-            finally:
-                pass
-    print(f"Loaded All Plugins In {Load_time}ms")
+
 
 
 # [loads the token from config and run's the bot]
@@ -104,5 +85,6 @@ def run_bot():
 
 
 if __name__ == "__main__":
-    load_plugin()
+    pluginLoader = LoadPlugin(bot=bot)
+    globals()['loaded_plugins'] = pluginLoader.load_plugin()
     run_bot()

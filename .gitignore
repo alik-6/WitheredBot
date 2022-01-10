@@ -132,6 +132,8 @@ dmypy.json
 .pyre/
 
 #custom
-venv/config.json
 Settings.db
-.vscode/settings.json
+.vscode/
+.idea/
+app.py
+demo.py

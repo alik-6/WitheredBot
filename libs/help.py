@@ -1,5 +1,3 @@
-import sys
-import time
 from libs.extras import to_discord_str
 from discord import Embed
 from .config import get
