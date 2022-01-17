@@ -1,7 +1,6 @@
 from libs.help import EmbedHelp
 from libs.extras import to_discord_str
 from discord import (Embed)
-from art import text2art
 from discord.ext import (commands)
 
 
@@ -31,26 +30,10 @@ class Init(commands.Cog):
             await ctx.send(to_discord_str('[Q/][BOT]  Afk system activated '))
             self.afk = True
 
-    @commands.command()
-    async def art(self, ctx, *args):
-        """Turns Text To Ascii Output"""
-        args = " ".join(args)
-        if args.strip() == "":
-            help = EmbedHelp(self.art, accepted_args=["[Word]"])
-            await ctx.send(embed=await(help()))
-        else:
-            embed = Embed(title="Art")
-            if len(args) < 7:
-                art = text2art(args)
-                embed.description = to_discord_str(f"[C]{art}[C]")
-            else:
-                embed.description = to_discord_str("[C]Must be less than 7 alphabets[C]")
-            await ctx.send(embed=embed)
-
 
 def setup(bot) -> dict:
     return {
         "Object": Init(bot),
         "name": "Aro",
-        "description": "Adds ability to use ascii art and afk system"
+        "description": "Adds ability to use afk system"
     }

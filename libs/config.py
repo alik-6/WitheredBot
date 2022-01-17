@@ -1,6 +1,6 @@
 import sqlite3
 
-DATABASE_NAME = "Settings.db"
+DATABASE_NAME = "Storage.db"
 def database():
     connection = sqlite3.connect(DATABASE_NAME)
     conn = connection.cursor()
@@ -24,7 +24,6 @@ def get(key: str):
         return value[1]
     else:
         return None
-        
 
 
 
@@ -55,5 +54,7 @@ def update(key:str, value: str):
     value = conn.execute(f"UPDATE Settings SET value = '{value}' WHERE key = '{key}'")
     connection.commit()
     connection.close()
+
+
 
 

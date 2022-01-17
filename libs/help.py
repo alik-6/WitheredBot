@@ -18,8 +18,10 @@ class EmbedHelp:
             for i in self.accepted_args:
                 description += f" [{i}]"
                 embed.description = to_discord_str(description + "[C]")
-                self.accepted_args = ', '.join(self.accepted_args)
-                embed.add_field(name="Args", value=to_discord_str(f"[C]{self.accepted_args}[C]"))
+            self.accepted_args = ', '.join(self.accepted_args)
+            embed.add_field(name="Args", value=to_discord_str(f"[C]{self.accepted_args}[C]"))              
+
+
         if self.parent.help:
             embed.add_field(name=f"Help", value=to_discord_str(f"[C]{self.parent.help}[C]"))
         if self.parent.aliases:

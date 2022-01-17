@@ -13,7 +13,7 @@ bot = Bot(
     case_insensitive=True
 )
 
-Load_time = 0
+load_time = 0
 loaded_plugins = []
 
 
@@ -28,17 +28,22 @@ async def help(ctx):
     help_embed = Embed(title="Help", description="List all commands")
     for key in bot.walk_commands():
         if str(key) not in excluded:
-            help_embed.add_field(name=f"{get('prefix')}{key}", value=to_discord_str(f"[Q/]{key.help}"))
+            help_embed.add_field(name=f"{get('prefix')}{key}", value=to_discord_str(f"[L]{key.help}[L]"))
 
     await ctx.send(embed=help_embed)
 
+
+@bot.event
+async def on_command(ctx):
+    command = ctx.command
+    print(f'Command Executed: {command}')
 
 @bot.command(aliases=['pl'])
 async def plugins(ctx):
     e = Embed(title="Installed Plugins", description=f"{len(loaded_plugins)} plugins Installed")
     for i in loaded_plugins:
         e.add_field(name=i['name'], value=f"> {i['description']}", inline=False)
-    e.set_footer(text=f"Load time: {Load_time}ms")
+    e.set_footer(text=f"Load time: {globals()['load_time']}ms")
     await ctx.send(embed=e.set_thumbnail(url=ctx.author.avatar_url))
 
 
@@ -86,5 +91,5 @@ def run_bot():
 
 if __name__ == "__main__":
     pluginLoader = LoadPlugin(bot=bot)
-    globals()['loaded_plugins'] = pluginLoader.load_plugin()
+    globals()['loaded_plugins'], globals()['load_time'] = pluginLoader.load_plugin()
     run_bot()

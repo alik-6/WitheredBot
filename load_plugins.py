@@ -8,8 +8,7 @@ from libs.extras import print
 class LoadPlugin:
     def __init__(self, bot):
         self.bot = bot
-        self.load_time = 0
-        self.loaded = []
+
     def required_keys(self, data):
         if data.get('required_keys'):
             for i in data['required_keys']:
@@ -22,6 +21,8 @@ class LoadPlugin:
                         quit(0)
     
     def load_plugin(self):
+        load_time = 0
+        loaded = []
         for file in listdir("./plugins"):
             t = time.time() * 1000
             if file.endswith("_plugin.py"):
@@ -30,12 +31,12 @@ class LoadPlugin:
                     data = class_plug.setup(self.bot)
                     self.required_keys(data)
                     self.bot.add_cog(data['Object'])
-                    self.load_time += round(abs(t - time.time() * 1000))
-                    self.loaded.append(data)
+                    load_time += round(abs(t - time.time() * 1000))
+                    loaded.append(data)
                     print(f"Plugin \"{data['name']}\" Loaded!")
                 except ImportError:
                     print(f"Plugin Loading Failed!")
                 finally:
                     pass
-        print(f"Loaded All Plugins In {self.load_time}ms")
-        return self.loaded
+        print(f"Loaded All Plugins In {load_time}ms")
+        return (loaded, load_time)

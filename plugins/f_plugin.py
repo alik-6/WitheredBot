@@ -12,12 +12,10 @@ class Init(commands.Cog):
     @commands.command()
     async def flip(self, ctx):
         """Flips The Coin"""
-        await ctx.send(
-            embed=Embed(
-                title="Flipping the coin",
-                description=to_discord_str(f"[B]{choice(['Head', 'Tail'])}[B] wins"),
-            )
-        )
+        await ctx.send(embed=Embed(
+            title="Flipping the coin",
+            description=to_discord_str(f"[B]{choice(['Head', 'Tail'])}[B] wins"),
+        ))
 
     @commands.command(aliases=["format"])
     async def fmt(self, ctx, *msg):

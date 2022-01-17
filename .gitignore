@@ -1,4 +1,3 @@
-venv/config.json
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -132,8 +131,11 @@ dmypy.json
 .pyre/
 
 #custom
-Settings.db
+
 .vscode/
 .idea/
 app.py
 demo.py
+Storage.db
+Pipfile
+Pipfile.lock

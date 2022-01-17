@@ -6,13 +6,7 @@ import requests
 from base64 import b64encode
 from discord import Colour
 
-
-
-class Init(commands.Cog):
-    def __init__(self, bot):
-        self.bot = bot
-        self.color = Colour.green()
-
+class Extras:
     def get_token(self):
         SECRET = get('SPOTIFY_CLIENT_SECRET')
         ID = get('SPOTIFY_CLIENT_ID') 
@@ -65,11 +59,19 @@ class Init(commands.Cog):
 
         return req.json()
 
+class Init(commands.Cog):
+    def __init__(self, bot):
+        self.bot = bot
+        self.extras = Extras()
+        self.color = Colour.green()
+
+    
+
     @commands.command()
     async def spotify(self, ctx, *term):
         "Search the Spotify "
         term = " ".join(term)
-        token = self.get_token()
+        token = self.extras.get_token()
         if not token:
             await ctx.send(embed=Embed(title="Spotify", description="Invalid Credentials", color=self.color))
         if term.strip() == "":
@@ -77,15 +79,19 @@ class Init(commands.Cog):
             await ctx.send(embed=await(help()))
 
         else:
-            song_data = self.process_song_data(self.get_song_data(term, token))
+            song_data = self.extras.process_song_data(self.extras.get_song_data(term, token))
             if song_data:
                 e = Embed(title=song_data.get('name'), description=f"By {song_data.get('artists')}", url=song_data.get('url'), color=self.color)
                 e.add_field(name="Duration", value=f"`{song_data.get('time')}mins`", inline=False)
                 e.set_footer(text=f"Published on {song_data.get('date')}")
-                e.set_image(url=song_data('image'))
+                e.set_image(url=song_data.get('image'))
                 await ctx.send(embed=e)
             else:
-                await ctx.send(embed=Embed(title="Spotify", description="No Songs Found", color=self.color))
+                await ctx.send(embed=Embed(
+                    title="Spotify",
+                    description="No Songs Found", 
+                    color=self.color
+                ))
 
 def setup(bot) -> dict:
     return {

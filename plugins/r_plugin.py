@@ -16,7 +16,6 @@ class Init(commands.Cog):
         if message.strip() == "" or num == 0 or delay == 0:
             help = EmbedHelp(self.repeat, accepted_args=["num", "message"])
             await ctx.send(embed=await(help()))
-            return
         else:
             for _ in range(num):
                 await sleep(delay)
