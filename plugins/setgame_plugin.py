@@ -17,7 +17,7 @@ class SetGame(commands.Cog):
         else:
             activity = Game(name=name, type=4)
             await self.bot.change_presence(status=Status.dnd, activity=activity)
-            await ctx.send(Embed(title='Game Status', description=f"Using \"{name}\" as current game").special)
+            await ctx.send(Embed(title='Game Status', description=f"Using \"{name}\" as current game").create)
 
 
 def setup(bot) -> dict:

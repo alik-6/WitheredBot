@@ -25,7 +25,7 @@ class EmbedHelp:
         if self.parent.aliases:
             embed.add_field(name="Aliases", value=f"{', '.join(self.parent.aliases)}")
 
-        return embed.special
+        return embed.create
 
     def __repr__(self):
         print(f"({self.parent}, {self.accepted_args})")

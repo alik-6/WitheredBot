@@ -44,7 +44,7 @@ class Explain(commands.Cog):
                 elif payload.get('meanings')[0].get('partOfSpeech'):
                     embed.add_field(name="Part of Speach", value=f"{payload.get('meanings')[0].get('partOfSpeech')}")
   
-            await ctx.send(embed.special)
+            await ctx.send(embed.create)
 
 
 def setup(bot) -> dict:

@@ -9,7 +9,7 @@ class Joke(commands.Cog):
 
     @commands.command()
     async def joke(self, ctx):
-        params={}
+        params: dict[str] = {}
         params.update({'blacklistFlags': 'nsfw'})
         params.update({'type': 'single'})
         request = get('https://v2.jokeapi.dev/joke/Programming,Miscellaneous,Dark,Pun,Spooky?type=single', params=params).json()
@@ -19,13 +19,13 @@ class Joke(commands.Cog):
                 description=f"{request['joke']}"
             )
 
-            await ctx.send(joke.special)
+            await ctx.send(joke.create)
         else:
             error = Embed(
                 title="Error",
                 description="Api is unavailable"
             )
-            await ctx.send(error.special)
+            await ctx.send(error.create)
 
 
 def setup(bot) -> dict:

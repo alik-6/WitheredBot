@@ -25,7 +25,7 @@ class Calc(commands.Cog):
                 calc_embed = Embed(
                     title="Error", description=f"Invalid syntax: {args}"
                 )
-            await ctx.send(calc_embed.special)
+            await ctx.send(calc_embed.create)
 
 
 def setup(bot) -> dict:

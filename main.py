@@ -1,11 +1,11 @@
 # [withered bot - v0.4]
 from discord import errors
 from libs.embed import Embed
-from discord.ext.commands import Bot
+from discord.ext.commands import Bot, Context
 from libs.extras import to_discord_str, print
 from libs.config import get, update, set
+
 from load_plugins import LoadPlugin
-from os import environ
 
 bot = Bot(
     self_bot=True,
@@ -31,12 +31,13 @@ async def help(ctx):
         if str(key) not in excluded:
             help_embed.add_field(name=f"{get('PREFIX')}{key}", value=f"{key.help}")
 
-    await ctx.send(help_embed.special)
+    await ctx.send(help_embed.create)
 
 
 @bot.event
-async def on_command(ctx):
+async def on_command(ctx: Context):
     command = ctx.command
+
     print(f'Command Executed: {command}')
 
 
@@ -46,18 +47,18 @@ async def plugins(ctx):
     for plugin in loaded_plugins:
         embed.add_field(name=plugin['name'], value=f"> {plugin['description']}", inline=False)
     embed.set_footer(text=f"Load time: {globals()['load_time']}ms")
-    await ctx.send(embed.special)
+    await ctx.send(embed.create)
 
 
 @bot.command()
 async def about(ctx):
-    about = Embed(
+    embed = Embed(
         title='About',
         description="`Written in python by` <@893794390164795392>"
     )
-    about.add_field(name="Github:", value="https://github.com/a-a-a-aa/WitheredBot")
+    embed.add_field(name="Github:", value="https://github.com/a-a-a-aa/WitheredBot")
     await ctx.send(
-        about.special
+        embed.create
     )
 
 
@@ -73,7 +74,6 @@ def run_bot():
     try:
         token = get('TOKEN')
         prefix = get('PREFIX')
-        print(str(type(prefix)))
         if not token:
             set('TOKEN', input('Enter TOKEN>'))
         if not prefix:
@@ -87,8 +87,6 @@ def run_bot():
               "https://discordstatus.com/")
     except errors.ConnectionClosed:
         print("Discord Unexpectedly Closed the connection")
-    finally:
-        pass
 
 
 if __name__ == "__main__":

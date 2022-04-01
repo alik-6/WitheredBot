@@ -21,7 +21,7 @@ class YoutubeSearch(commands.Cog):
                 help()
             )
         else:
-            message = await ctx.send(Embed(title="Youtube", description=f"searching for `{args}`").special)
+            message = await ctx.send(Embed(title="Youtube", description=f"searching for `{args}`").create)
             request_yt = get(
                 f"https://www.youtube.com/results?search_query={args}"
             )

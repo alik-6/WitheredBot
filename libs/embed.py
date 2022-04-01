@@ -16,7 +16,7 @@ class Embed:
         self.footer = text
 
     @property
-    def special(self):
+    def create(self):
         content = ["||..." if self.spoiler else '...']
         content.extend([f"**{self.title}**", '---'])
         if self.description:

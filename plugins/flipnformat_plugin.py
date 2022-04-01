@@ -16,10 +16,9 @@ class FlipnFormat(commands.Cog):
             title="Flipping the coin",
             description=f"{choice(['Head', 'Tail'])} wins"
         )
-        await ctx.send(flip_embed.special)
+        await ctx.send(flip_embed.create)
 
-
-    @commands.command(aliases=["format"])
+    @commands.command()
     async def fmt(self, ctx, *msg):
         """Formats The String"""
         args = " ".join(msg)
