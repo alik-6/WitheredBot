@@ -4,10 +4,10 @@ from os import listdir
 import time
 from libs.extras import print
 
+
 class LoadPlugin:
     def __init__(self, bot):
         self.bot = bot
-
 
     def load_plugin(self):
         load_time = 0
@@ -27,4 +27,4 @@ class LoadPlugin:
                 finally:
                     pass
         print(f"Loaded All Plugins In {load_time}ms")
-        return (loaded, load_time)
+        return loaded, load_time

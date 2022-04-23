@@ -54,7 +54,3 @@ def update(key:str, value: str):
     value = conn.execute(f"UPDATE Settings SET value = '{value}' WHERE key = '{key}'")
     connection.commit()
     connection.close()
-
-
-
-
