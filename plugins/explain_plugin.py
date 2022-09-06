@@ -4,6 +4,7 @@ from discord.ext import commands
 from requests import get
 from libs.help import EmbedHelp
 from libs.embed import Embed
+from typing import Any
 
 
 class Explain(commands.Cog):
@@ -47,7 +48,7 @@ class Explain(commands.Cog):
             await ctx.send(embed.create)
 
 
-def setup(bot) -> dict:
+def setup(bot) ->  dict[str, Any]:
     return {
         "Object": Explain(bot),
         "name": "Explain It",

@@ -29,7 +29,8 @@ async def help(ctx):
     help_embed = Embed(title="Help", description="List all commands")
     for key in bot.walk_commands():
         if str(key) not in excluded:
-            help_embed.add_field(name=f"{get('PREFIX')}{key}", value=f"{key.help}")
+            help_embed.add_field(
+                name=f"{get('PREFIX')}{key}", value=f"{key.help}")
 
     await ctx.send(help_embed.create)
 
@@ -43,9 +44,11 @@ async def on_command(ctx: Context):
 
 @bot.command(aliases=['pl'])
 async def plugins(ctx):
-    embed = Embed(title="Installed Plugins", description=f"{len(loaded_plugins)} plugins Installed")
+    embed = Embed(title="Installed Plugins",
+                  description=f"{len(loaded_plugins)} plugins Installed")
     for plugin in loaded_plugins:
-        embed.add_field(name=plugin['name'], value=f"> {plugin['description']}", inline=False)
+        embed.add_field(
+            name=plugin['name'], value=f"> {plugin['description']}", inline=False)
     embed.set_footer(text=f"Load time: {globals()['load_time']}ms")
     await ctx.send(embed.create)
 
@@ -56,7 +59,8 @@ async def about(ctx):
         title='About',
         description="`Written in python by` <@893794390164795392>"
     )
-    embed.add_field(name="Github:", value="https://github.com/a-a-a-aa/WitheredBot")
+    embed.add_field(
+        name="Github:", value="https://github.com/git-vamp/WitheredBot")
     await ctx.send(
         embed.create
     )
@@ -65,9 +69,9 @@ async def about(ctx):
 @bot.command()
 async def setprefix(ctx, prefix=""):
     if prefix.strip():
-        update('prefix', prefix)
-        prefix = bot.command_prefix = get('prefix')
-        await ctx.send(to_discord_str(f"[Q/]Prefix changed to [L]{prefix}[L]"))
+        update('PREFIX', prefix)
+        bot.command_prefix = get('PREFIX')
+        await ctx.send(to_discord_str(f"[Q/]Prefix changed to [L]{get('PREFIX')}[L]"))
 
 
 def run_bot():
@@ -75,13 +79,14 @@ def run_bot():
         token = get('TOKEN')
         prefix = get('PREFIX')
         if not token:
-            set('TOKEN', input('Enter TOKEN>'))
+            token = input('Enter TOKEN>')
+            set('TOKEN', token)
         if not prefix:
             set('PREFIX', input('Enter PREFIX>'))
         bot.run(get('TOKEN'), bot=False)
     except errors.LoginFailure:
         print("Improper Token: Are you sure you passed the right token?")
-        set('TOKEN', '')
+        set('TOKEN', None)
     except errors.DiscordServerError:
         print("It looks like discord server are having some issues,please try again later status: "
               "https://discordstatus.com/")
@@ -91,5 +96,6 @@ def run_bot():
 
 if __name__ == "__main__":
     pluginLoader = LoadPlugin(bot=bot)
-    globals()['loaded_plugins'], globals()['load_time'] = pluginLoader.load_plugin()
+    globals()['loaded_plugins'], globals()[
+        'load_time'] = pluginLoader.load_plugin()
     run_bot()

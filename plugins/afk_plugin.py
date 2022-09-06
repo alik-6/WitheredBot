@@ -1,5 +1,6 @@
 from libs.extras import to_discord_str
 from discord.ext import (commands)
+from typing import Any
 
 
 class Afk(commands.Cog):
@@ -21,6 +22,7 @@ class Afk(commands.Cog):
     async def afk(self, ctx):
         """Toggle Afk Mode"""
         if self.afk:
+
             await ctx.send(to_discord_str('[Q/][BOT] Not Afk Anymore'))
             self.afk = False
             # break
@@ -29,7 +31,7 @@ class Afk(commands.Cog):
             self.afk = True
 
 
-def setup(bot) -> dict:
+def setup(bot) ->  dict[str, Any]:
     return {
         "Object": Afk(bot),
         "name": "Afk",

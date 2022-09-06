@@ -1,11 +1,14 @@
+from datetime import date, datetime, timezone
 from discord.ext import commands
 from discord import Game, Status
+from discord.activity import Game
 from libs.help import EmbedHelp
 from libs.embed import Embed
+from typing import Any
 
 
 class SetGame(commands.Cog):
-    def __init__(self, bot):
+    def __init__(self, bot) -> None:
         self.bot = bot
 
     @commands.command()
@@ -15,12 +18,14 @@ class SetGame(commands.Cog):
             help = EmbedHelp(self.setgame, accepted_args=['Game'])
             await ctx.send(help())
         else:
-            activity = Game(name=name, type=4)
+            activity = Game(name=name, type=4,
+                            start=datetime.now(timezone.utc))
+
             await self.bot.change_presence(status=Status.dnd, activity=activity)
             await ctx.send(Embed(title='Game Status', description=f"Using \"{name}\" as current game").create)
 
 
-def setup(bot) -> dict:
+def setup(bot) ->  dict[str, Any]:
     return {
         "Object": SetGame(bot),
         "name": "Custom Status",

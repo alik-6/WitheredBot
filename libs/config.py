@@ -1,6 +1,8 @@
 import sqlite3
 
-DATABASE_NAME = "Storage.db"
+DATABASE_NAME = "Storage.sqlite"
+
+
 def database():
     connection = sqlite3.connect(DATABASE_NAME)
     conn = connection.cursor()
@@ -13,11 +15,13 @@ def database():
     connection.commit()
     connection.close()
 
+
 def get(key: str):
     database()
     connection = sqlite3.connect(DATABASE_NAME)
     conn = connection.cursor()
-    value = conn.execute("SELECT * FROM Settings where key = ?;", (key,)).fetchone()
+    value = conn.execute(
+        "SELECT * FROM Settings where key = ?;", (key,)).fetchone()
     connection.commit()
     connection.close()
     if value:
@@ -26,31 +30,34 @@ def get(key: str):
         return None
 
 
-
-def set(key:str, value: str):
+def set(key: str, value: str):
     database()
     connection = sqlite3.connect(DATABASE_NAME)
     conn = connection.cursor()
     try:
-        conn.execute("INSERT INTO Settings(key, value) VALUES(? , ?);", (key, value,))
+        conn.execute(
+            "INSERT INTO Settings(key, value) VALUES(? , ?);", (key, value,))
         connection.commit()
         connection.close()
         return {'Added': 'Key Added'}
     except sqlite3.IntegrityError:
         return {'Error': 'Key Already Exist'}
 
+
 def delete(key: str):
     database()
     connection = sqlite3.connect(DATABASE_NAME)
     conn = connection.cursor()
-    conn.execute("DELETE FROM Settings WHERE key = ?",(key,))
+    conn.execute("DELETE FROM Settings WHERE key = ?", (key,))
     connection.commit()
     connection.close()
 
-def update(key:str, value: str):
+
+def update(key: str, value: str):
     database()
     connection = sqlite3.connect(DATABASE_NAME)
     conn = connection.cursor()
-    value = conn.execute(f"UPDATE Settings SET value = '{value}' WHERE key = '{key}'")
+    value = conn.execute(
+        f"UPDATE Settings SET value = '{value}' WHERE key = '{key}'")
     connection.commit()
     connection.close()

@@ -3,6 +3,7 @@ from libs.help import EmbedHelp
 from libs.extras import to_discord_str
 from random import choice
 from libs.embed import Embed
+from typing import Any
 
 
 class FlipnFormat(commands.Cog):
@@ -32,7 +33,7 @@ class FlipnFormat(commands.Cog):
             await ctx.send(to_discord_str(args))
 
 
-def setup(bot) -> dict:
+def setup(bot) -> dict[str, Any]:
     return {
         "Object": FlipnFormat(bot),
         "name": "Formatter",

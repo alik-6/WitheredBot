@@ -2,6 +2,7 @@ from discord.ext import commands
 from libs.help import EmbedHelp
 from libs.extras import to_discord_str
 from asyncio import sleep
+from typing import Any
 
 
 class Repeat(commands.Cog):
@@ -10,19 +11,25 @@ class Repeat(commands.Cog):
 
     @commands.command()
     async def repeat(self, ctx, num=2, delay=0.8, *message):
-        """Repeats|Spam a message"""
+        """Repeats | Spam a message"""
         message = " ".join(message)
-       
-        if message.strip() == "" or num == 0 or delay == 0:
-            help = EmbedHelp(self.repeat, accepted_args=["number", "delay", "message"])
+
+        if message.strip() == "" or num <= 0 or delay < 0.8:
+            help = EmbedHelp(self.repeat, accepted_args=[
+                             "number", "delay", "message"])
             await ctx.send(help())
         else:
-            for _ in range(num):
+            has_counter = False
+            if message.find('${C}') != -1:
+                has_counter = True
+            for x in range(num):
                 await sleep(delay)
-                await ctx.send(to_discord_str(message))
+                await ctx.send(to_discord_str([message if not has_counter
+                                               else message.replace('${C}', str(x + 1))
+                                               ][0]))
 
 
-def setup(bot) -> dict:
+def setup(bot) -> dict[str, Any]:
     return {
         "Object": Repeat(bot),
         "name": "Repeat it!",

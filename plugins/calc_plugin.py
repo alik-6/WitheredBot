@@ -1,6 +1,7 @@
 from discord.ext import (commands)
 from libs.help import EmbedHelp
 from libs.embed import Embed
+from typing import Any
 
 
 class Calc(commands.Cog):
@@ -28,7 +29,7 @@ class Calc(commands.Cog):
             await ctx.send(calc_embed.create)
 
 
-def setup(bot) -> dict:
+def setup(bot) ->  dict[str, Any]:
     return {
         "Object": Calc(bot),
         "name": "Calc",

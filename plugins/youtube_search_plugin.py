@@ -5,6 +5,7 @@ from libs.embed import Embed
 from libs.help import EmbedHelp
 from libs.extras import to_discord_str
 
+from typing import Any
 
 
 class YoutubeSearch(commands.Cog):
@@ -25,7 +26,8 @@ class YoutubeSearch(commands.Cog):
             request_yt = get(
                 f"https://www.youtube.com/results?search_query={args}"
             )
-            yt_link = re.findall(r"watch\?v=(\S{11})", request_yt.content.decode())
+            yt_link = re.findall(
+                r"watch\?v=(\S{11})", request_yt.content.decode())
             await message.delete()
             await ctx.send(
                 to_discord_str(
@@ -34,7 +36,7 @@ class YoutubeSearch(commands.Cog):
             )
 
 
-def setup(bot) -> dict:
+def setup(bot) -> dict[str, Any]:
     return {
         "Object": YoutubeSearch(bot),
         "name": "YouTube",

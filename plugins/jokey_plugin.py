@@ -1,6 +1,7 @@
 from libs.embed import (Embed)
 from discord.ext import (commands)
 from requests import get
+from typing import Any
 
 
 class Joke(commands.Cog):
@@ -9,10 +10,12 @@ class Joke(commands.Cog):
 
     @commands.command()
     async def joke(self, ctx):
+
         params: dict[str] = {}
         params.update({'blacklistFlags': 'nsfw'})
         params.update({'type': 'single'})
-        request = get('https://v2.jokeapi.dev/joke/Programming,Miscellaneous,Dark,Pun,Spooky?type=single', params=params).json()
+        request = get(
+            'https://v2.jokeapi.dev/joke/Programming,Miscellaneous,Pun,Spooky', params=params).json()
         if not request['error']:
             joke = Embed(
                 title=f"{request['category']}",
@@ -28,7 +31,7 @@ class Joke(commands.Cog):
             await ctx.send(error.create)
 
 
-def setup(bot) -> dict:
+def setup(bot) ->  dict[str, Any]:
     return {
         "Object": Joke(bot),
         "name": "Jokey",
