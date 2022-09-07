@@ -22,16 +22,16 @@ class Joke(commands.Cog):
                 description=f"{request['joke']}"
             )
 
-            await ctx.send(joke.create)
+            await ctx.send(joke())
         else:
             error = Embed(
                 title="Error",
                 description="Api is unavailable"
             )
-            await ctx.send(error.create)
+            await ctx.send(error())
 
 
-def setup(bot) ->  dict[str, Any]:
+def setup(bot) -> dict[str, Any]:
     return {
         "Object": Joke(bot),
         "name": "Jokey",

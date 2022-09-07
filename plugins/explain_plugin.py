@@ -36,19 +36,23 @@ class Explain(commands.Cog):
                     embed.description = f"{definitions.get('definition')}"
 
                 elif definitions.get('example'):
-                    embed.add_field(name="Example", value=f"{definitions.get('example')}")
+                    embed.add_field(
+                        name="Example", value=f"{definitions.get('example')}")
 
                 elif definitions.get('synonyms'):
-                    embed.add_field(name="Synonyms", value=f"{', '.join(definitions.get('synonyms'))}")
+                    embed.add_field(
+                        name="Synonyms", value=f"{', '.join(definitions.get('synonyms'))}")
                 elif definitions.get('antonyms'):
-                    embed.add_field(name="Antonyms", value=f"{', '.join(definitions.get('antonyms'))}")
+                    embed.add_field(
+                        name="Antonyms", value=f"{', '.join(definitions.get('antonyms'))}")
                 elif payload.get('meanings')[0].get('partOfSpeech'):
-                    embed.add_field(name="Part of Speach", value=f"{payload.get('meanings')[0].get('partOfSpeech')}")
-  
-            await ctx.send(embed.create)
+                    embed.add_field(
+                        name="Part of Speach", value=f"{payload.get('meanings')[0].get('partOfSpeech')}")
+
+            await ctx.send(embed())
 
 
-def setup(bot) ->  dict[str, Any]:
+def setup(bot) -> dict[str, Any]:
     return {
         "Object": Explain(bot),
         "name": "Explain It",

@@ -20,7 +20,7 @@ def to_discord_str(s):
 
 def print(animation):
     temp_str = "[ BOT ] "
-    for i in animation:
+    for i in str(animation):
         temp_str += i
         time.sleep(0.01)
         sys.stdout.write("\r" + temp_str)

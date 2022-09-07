@@ -22,10 +22,12 @@ class SetGame(commands.Cog):
                             start=datetime.now(timezone.utc))
 
             await self.bot.change_presence(status=Status.dnd, activity=activity)
-            await ctx.send(Embed(title='Game Status', description=f"Using \"{name}\" as current game").create)
+            statusEmbed = Embed(title='Game Status',
+                           description=f"Using \"{name}\" as current game")
+            await ctx.send(statusEmbed())
 
 
-def setup(bot) ->  dict[str, Any]:
+def setup(bot) -> dict[str, Any]:
     return {
         "Object": SetGame(bot),
         "name": "Custom Status",

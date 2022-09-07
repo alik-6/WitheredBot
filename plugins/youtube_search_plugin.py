@@ -4,7 +4,6 @@ from discord.ext import commands
 from libs.embed import Embed
 from libs.help import EmbedHelp
 from libs.extras import to_discord_str
-
 from typing import Any
 
 
@@ -22,12 +21,14 @@ class YoutubeSearch(commands.Cog):
                 help()
             )
         else:
-            message = await ctx.send(Embed(title="Youtube", description=f"searching for `{args}`").create)
-            request_yt = get(
+            yt_search_embed = Embed(
+                title="Youtube", description=f"searching for `{args}`")
+            message = await ctx.send(yt_search_embed())
+            yt_content = get(
                 f"https://www.youtube.com/results?search_query={args}"
-            )
+            ).content.decode()
             yt_link = re.findall(
-                r"watch\?v=(\S{11})", request_yt.content.decode())
+                r"watch\?v=(\S{11})", yt_content)
             await message.delete()
             await ctx.send(
                 to_discord_str(

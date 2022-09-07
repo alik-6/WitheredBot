@@ -24,14 +24,17 @@ class Repeat(commands.Cog):
                 has_counter = True
             for x in range(num):
                 await sleep(delay)
-                await ctx.send(to_discord_str([message if not has_counter
-                                               else message.replace('${C}', str(x + 1))
-                                               ][0]))
+                await ctx.send(to_discord_str(
+                    [
+                        message if not has_counter
+                        else message.replace('${C}', str(x + 1))
+                    ][0]
+                ))
 
 
 def setup(bot) -> dict[str, Any]:
     return {
         "Object": Repeat(bot),
         "name": "Repeat it!",
-        "description": "Adds Ability to Repeat|Spam a Message"
+        "description": "Adds Ability to Repeat | Spam a Message"
     }

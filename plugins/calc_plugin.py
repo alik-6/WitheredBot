@@ -17,19 +17,22 @@ class Calc(commands.Cog):
             await ctx.send(help())
         else:
             try:
-                calc_embed = Embed(title="Result", description=f"{args} = {eval(args)}")
+                calc_embed = Embed(
+                    title="Result", description=f"{args} = {eval(args)}")
             except ValueError:
-                calc_embed = Embed(title="Error", description=f"Invalid equation: {args}")
+                calc_embed = Embed(
+                    title="Error", description=f"Invalid equation: {args}")
             except ZeroDivisionError:
-                calc_embed = Embed(title="Error", description=f"Can't Divide Zero by itself: {args}")
+                calc_embed = Embed(
+                    title="Error", description=f"Can't Divide Zero by itself: {args}")
             except SyntaxError:
                 calc_embed = Embed(
                     title="Error", description=f"Invalid syntax: {args}"
                 )
-            await ctx.send(calc_embed.create)
+            await ctx.send(calc_embed())
 
 
-def setup(bot) ->  dict[str, Any]:
+def setup(bot) -> dict[str, Any]:
     return {
         "Object": Calc(bot),
         "name": "Calc",
